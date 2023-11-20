@@ -7,10 +7,10 @@ import pytest
 class TestUsuario():
 
     @pytest.mark.parametrize("nome", ["Micci", "Luiz",
-                                      "João", " Luis", " Marcia ", "vica "])
+                                      "João", " Luis", " Marcia ", "vica ", "luiz    felipe", "Luiz Felipe"])
     def test_criando_usuario_dados_minimos(self, nome):
         usuario = Usuario(nome)
-        assert usuario.nome == nome.strip()
+        assert usuario.nome ==" ".join(nome.split())
 
     @pytest.mark.parametrize("nome", ["", None])
     def test_nome_nao_pode_ter_vazio(self, nome):

@@ -14,4 +14,4 @@ class Usuario():
         if any(char.isdigit() for char in nome):
             raise NomeInvalidoError("Nome Invalido! Não pode conter números!")
 
-        self.nome = nome.strip()
+        self.nome = " ".join(nome.split())
