@@ -13,4 +13,9 @@ class Usuario():
         #nome cannot have numbers
         if any(char.isdigit() for char in nome):
             raise NomeInvalidoError("Nome Invalido!")
+
+        #nome cannot start with space and end with space
+        if nome[0].isspace() or nome[-1].isspace():
+            raise NomeInvalidoError("Nome Invalido!")
+
         self.nome = nome
