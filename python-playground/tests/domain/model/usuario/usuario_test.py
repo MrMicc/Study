@@ -6,10 +6,11 @@ import pytest
 
 class TestUsuario():
 
-    @pytest.mark.parametrize("nome", ["Micci", "Luiz", "João"])
+    @pytest.mark.parametrize("nome", ["Micci", "Luiz",
+                                      "João", " Luis", " Marcia ", "vica "])
     def test_criando_usuario_dados_minimos(self, nome):
         usuario = Usuario(nome)
-        assert usuario.nome == nome
+        assert usuario.nome == nome.strip()
 
     @pytest.mark.parametrize("nome", ["", None])
     def test_nome_nao_pode_ter_vazio(self, nome):
@@ -22,11 +23,6 @@ class TestUsuario():
     def test_nome_nao_pode_ser_numerico(self, nome):
         with pytest.raises(NomeInvalidoError) as target:
             Usuario(nome)
-        assert str(target.value) == "Nome Invalido!"
+        assert str(target.value) == "Nome Invalido! Não pode conter números!"
    
-    @pytest.mark.parametrize("nome", [" Micci", " Micci "])
-    def test_nome_nao_pode_conter_espaco_inicio_e_fim(self, nome):
-        with pytest.raises(NomeInvalidoError) as target:
-            Usuario(nome)
-        assert str(target.value) == "Nome Invalido!"
 
