@@ -26,3 +26,8 @@ class TestUsuario():
         assert str(target.value) == "Nome Invalido! Não pode conter números!"
    
 
+    @pytest.mark.parametrize("nome", ["n@me", "Lu!z", "Jo@o", "Luis&", "$hirley", "marc*s"])
+    def test_nome_nao_pode_conter_caracteres_especiais(self, nome):
+        with pytest.raises(NomeInvalidoError) as target:
+            Usuario(nome)
+        assert str(target.value) == "Nome Invalido! Nome pode conter caracteres especiais!"
