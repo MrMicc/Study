@@ -6,7 +6,7 @@ import pytest
 
 class TestUsuario():
 
-    @pytest.mark.parametrize("nome", ["Micci", "Luiz",
+    @pytest.mark.parametrize("nome", ["Micci", "Luiz", "udy"
                                       "João", " Luis", " Marcia ", "vica ", "luiz    felipe", "Luiz Felipe"])
     def test_criando_usuario_dados_minimos(self, nome):
         usuario = Usuario(nome)
@@ -31,3 +31,10 @@ class TestUsuario():
         with pytest.raises(NomeInvalidoError) as target:
             Usuario(nome)
         assert str(target.value) == "Nome Invalido! Nome pode conter caracteres especiais!"
+
+    @pytest.mark.parametrize("nome", ["An", "a","zu"])
+    def test_nome_nao_pode_conter_menos_de_3_caracteres(self, nome):
+        with pytest.raises(NomeInvalidoError) as target:
+            Usuario(nome)
+        assert str(target.value) == "Nome Invalido! Nome deve ter mais de 3 caracteres!"
+

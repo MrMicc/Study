@@ -10,7 +10,7 @@
 - - [X] não pode começar e nem terminar com espaços em branco
 - - [X] pode conter espaços no meio
 - - [X] nao pode conter simbolos
-- - [ ] tem quer ter no minimo 3 char
+- - [X] tem quer ter no minimo 3 char
 
 
 

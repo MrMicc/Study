@@ -18,4 +18,7 @@ class Usuario():
         #nome cannot have special characters
         if any(char in self.caracter_especiais for char in nome):
             raise NomeInvalidoError("Nome Invalido! Nome pode conter caracteres especiais!")
+        #nome needs to be at least 3 characters long
+        if len(nome) < 3:
+            raise NomeInvalidoError("Nome Invalido! Nome deve ter mais de 3 caracteres!")
         self.nome = " ".join(nome.split())
