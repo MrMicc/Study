@@ -1,0 +1,2 @@
+class NomeInvalidoError(Exception):
+    pass
