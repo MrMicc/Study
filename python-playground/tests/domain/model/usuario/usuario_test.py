@@ -18,3 +18,12 @@ class TestUsuario():
         with pytest.raises(NomeInvalidoError) as target:
             Usuario(None)
         assert str(target.value) == "Nome Invalido!"
+
+    def test_nome_nao_pode_ser_numerico(self):
+        with pytest.raises(NomeInvalidoError) as target:
+            Usuario('123')
+        assert str(target.value) == "Nome Invalido!"
+       
+        with pytest.raises(NomeInvalidoError) as target:
+            Usuario(123)
+        assert str(target.value) == "Nome Invalido!"
