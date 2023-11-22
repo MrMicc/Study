@@ -10,31 +10,30 @@ class TestUsuario():
                                       "João", " Luis", " Marcia ", "vica ", "luiz    felipe", "Luiz Felipe"])
     def test_criando_usuario_dados_minimos(self, nome):
         usuario = Usuario(nome)
-        assert usuario.nome ==" ".join(nome.split())
+        assert usuario.nome == " ".join(nome.split())
 
     @pytest.mark.parametrize("nome", ["", None])
     def test_nome_nao_pode_ter_vazio(self, nome):
         with pytest.raises(NomeInvalidoError) as target:
-              Usuario(nome)
+            Usuario(nome)
         assert str(target.value) == "Nome Invalido!"
-
 
     @pytest.mark.parametrize("nome", [123, 123.0, '123', 'Micci123'])
     def test_nome_nao_pode_ser_numerico(self, nome):
         with pytest.raises(NomeInvalidoError) as target:
             Usuario(nome)
         assert str(target.value) == "Nome Invalido! Não pode conter números!"
-   
 
     @pytest.mark.parametrize("nome", ["n@me", "Lu!z", "Jo@o", "Luis&", "$hirley", "marc*s"])
     def test_nome_nao_pode_conter_caracteres_especiais(self, nome):
         with pytest.raises(NomeInvalidoError) as target:
             Usuario(nome)
-        assert str(target.value) == "Nome Invalido! Nome pode conter caracteres especiais!"
+        assert str(
+            target.value) == "Nome Invalido! Nome pode conter caracteres especiais!"
 
-    @pytest.mark.parametrize("nome", ["An", "a","zu"])
+    @pytest.mark.parametrize("nome", ["An", "a", "zu"])
     def test_nome_nao_pode_conter_menos_de_3_caracteres(self, nome):
         with pytest.raises(NomeInvalidoError) as target:
             Usuario(nome)
-        assert str(target.value) == "Nome Invalido! Nome deve ter mais de 3 caracteres!"
-
+        assert str(
+            target.value) == "Nome Invalido! Nome deve ter mais de 3 caracteres!"
