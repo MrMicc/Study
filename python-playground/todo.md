@@ -3,14 +3,19 @@
 ### REGRAS DE NEGOCIO
 - [X] Criar usuario.py
 - [X] add attr nome
-- [] add attr email
-- [*] O nome precisa estar válido
+- [X] O nome precisa estar válido
 - - [X] não pode ser vazio ou  null
 - - [X] não pode conter numeros
 - - [X] não pode começar e nem terminar com espaços em branco
 - - [X] pode conter espaços no meio
 - - [X] nao pode conter simbolos
 - - [X] tem quer ter no minimo 3 char
-
-
+- [*] add attr email
+- - [ ] O email precisa estar no formato valido
+- - [ ] O email nao pode estar vazio
+- - [ ] O email pode conter espacos
+- - [ ] O email pode e deve conter um @ e ao menos . após o @
+- - [ ] O email nao pode comecar ou terminar com .
+- - [ ] O email tem quer ter no minimo 3 char antes do @
+- - [ ] O email tem quer ter no minimo 3 char depois do @
 

@@ -6,7 +6,15 @@ class Usuario():
 
     caracter_especiais = "@#$%^&*()-+?_=,<>!/"
 
-    def __init__(self, nome) -> None:
+    def __init__(self, nome:str, email:str) -> None:
+        if self.__checa_se_nome_valido(nome):
+            self.__nome = " ".join(nome.split())
+
+        self.__email = email
+    
+
+
+    def __checa_se_nome_valido(self, nome: str) -> bool:
         if not nome:
             raise NomeInvalidoError("Nome Invalido!")
         # verify if nome is a string
@@ -23,10 +31,18 @@ class Usuario():
         if len(nome) < 3:
             raise NomeInvalidoError(
                 "Nome Invalido! Nome deve ter mais de 3 caracteres!")
-        self.__nome = " ".join(nome.split())
+        return True
 
     @property
     def nome(self):
         """The nome property."""
         return self.__nome
 
+    @property
+    def email(self) -> str:
+        """doc"""
+        return self.__email
+
+    @email.setter
+    def email(self, value):
+        self.__email = value
