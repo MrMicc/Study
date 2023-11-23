@@ -13,7 +13,7 @@
 - [*] add attr email
 - - [ ] O email precisa estar no formato valido
 - - [X] O email nao pode estar vazio
-- - [ ] O email pode conter espacos
+- - [X] O email pode conter espacos
 - - [ ] O email pode e deve conter um @ e ao menos . após o @
 - - [ ] O email nao pode comecar ou terminar com .
 - - [ ] O email tem quer ter no minimo 3 char antes do @

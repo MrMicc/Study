@@ -47,3 +47,8 @@ class TestUsuario():
         with pytest.raises(EmailInvalidoError) as target:
             self.criar_usuario(email=email)
         assert str(target.value) == "Email Invalido!"
+
+    @pytest.mark.parametrize("email", ["emai @email.com", "e mail@ mail.com"])
+    def test_email_remover_espacos(self,email: str):
+        usuario = self.criar_usuario(email=email)
+        assert usuario.email == "".join(email.split())

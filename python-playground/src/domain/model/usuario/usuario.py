@@ -11,7 +11,7 @@ class Usuario():
             self.__nome = " ".join(nome.split())
 
         if self.__checa_se_email_valido(email):
-            self.__email = email
+            self.__email = "".join(email.split())
 
     def __checa_se_nome_valido(self, nome: str) -> bool:
         if not nome:
