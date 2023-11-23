@@ -52,3 +52,11 @@ class TestUsuario():
     def test_email_remover_espacos(self,email: str):
         usuario = self.criar_usuario(email=email)
         assert usuario.email == "".join(email.split())
+
+    #email não pode comecar ou terminar com caracteres especiais
+    @pytest.mark.parametrize("email", ["@email.com", ".email@.com", "!email@.com", ".email.com.",
+    "email@.com."])
+    def test_email_nao_pode_comecar_ou_terminar_com_caracteres_especiais(self, email: str):
+        with pytest.raises(EmailInvalidoError) as target:
+            usuario = self.criar_usuario(email=email)
+        assert str(target.value) == "Email Invalido! Email pode comecar ou terminar com caracteres especiais!"

@@ -33,8 +33,13 @@ class Usuario():
         return True
 
     def __checa_se_email_valido(self, email: str) -> bool:
+        character_especiais = "@#$%^&*()-+?_=,<>!/."
         if not email:
             raise EmailInvalidoError("Email Invalido!")
+        #check se o email começa ou termina com carcter especiais
+        if email[0] in character_especiais or email[-1] in character_especiais:
+            raise EmailInvalidoError("Email Invalido! Email pode comecar ou terminar com caracteres especiais!")
+
         return True
 
     @property
