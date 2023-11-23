@@ -1,18 +1,17 @@
 
-from src.domain.model.exception.customException import NomeInvalidoError
+from src.domain.model.exception.customException import *
 
 
 class Usuario():
 
     caracter_especiais = "@#$%^&*()-+?_=,<>!/"
 
-    def __init__(self, nome:str, email:str) -> None:
+    def __init__(self, nome: str, email: str) -> None:
         if self.__checa_se_nome_valido(nome):
             self.__nome = " ".join(nome.split())
 
-        self.__email = email
-    
-
+        if self.__checa_se_email_valido(email):
+            self.__email = email
 
     def __checa_se_nome_valido(self, nome: str) -> bool:
         if not nome:
@@ -33,6 +32,11 @@ class Usuario():
                 "Nome Invalido! Nome deve ter mais de 3 caracteres!")
         return True
 
+    def __checa_se_email_valido(self, email: str) -> bool:
+        if not email:
+            raise EmailInvalidoError("Email Invalido!")
+        return True
+
     @property
     def nome(self):
         """The nome property."""
@@ -40,9 +44,5 @@ class Usuario():
 
     @property
     def email(self) -> str:
-        """doc"""
+        """Email property."""
         return self.__email
-
-    @email.setter
-    def email(self, value):
-        self.__email = value

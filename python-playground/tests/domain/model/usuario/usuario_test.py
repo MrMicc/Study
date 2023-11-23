@@ -1,6 +1,6 @@
 from src.domain.model import usuario
 from src.domain.model.usuario.usuario import Usuario
-from src.domain.model.exception.customException import NomeInvalidoError
+from src.domain.model.exception.customException import *
 import pytest
 
 
@@ -40,3 +40,10 @@ class TestUsuario():
             self.criar_usuario(nome)
         assert str(
             target.value) == "Nome Invalido! Nome deve ter mais de 3 caracteres!"
+
+    # validações do atributo email
+    @pytest.mark.parametrize("email", ["", None])
+    def test_email_nao_pode_ser_vazio(self, email: str):
+        with pytest.raises(EmailInvalidoError) as target:
+            self.criar_usuario(email=email)
+        assert str(target.value) == "Email Invalido!"
