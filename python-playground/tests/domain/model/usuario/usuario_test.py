@@ -71,3 +71,20 @@ class TestUsuario():
             self.criar_usuario(email=email)
         assert str(target.value) == "Email Invalido! Email deve conter @!"
 
+
+    """
+    quando email tiver mais de um @
+    entao deve ser gerado um erro E informar que email e invalido
+    """
+    @pytest.mark.parametrize("email", ["email@email@.com", "email@email@.com", "email@@mail"])
+    def test_email_nao_pode_conter_mais_de_um_arroba(self, email: str):
+        with pytest.raises(EmailInvalidoError) as target:
+            self.criar_usuario(email=email)
+        assert str(target.value) == "Email Invalido! Email nao pode conter mais de um @!"
+
+
+
+
+
+
+

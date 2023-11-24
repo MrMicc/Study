@@ -43,6 +43,9 @@ class Usuario():
         #check se o email possui @
         if "@" not in email:
             raise EmailInvalidoError("Email Invalido! Email deve conter @!")
+        #check se email possuim mais de um @
+        if email.count("@") > 1:
+            raise EmailInvalidoError("Email Invalido! Email nao pode conter mais de um @!")
 
         return True
 
