@@ -40,6 +40,10 @@ class Usuario():
         if email[0] in character_especiais or email[-1] in character_especiais:
             raise EmailInvalidoError("Email Invalido! Email pode comecar ou terminar com caracteres especiais!")
 
+        #check se o email possui @
+        if "@" not in email:
+            raise EmailInvalidoError("Email Invalido! Email deve conter @!")
+
         return True
 
     @property
