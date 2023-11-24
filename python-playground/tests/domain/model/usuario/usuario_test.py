@@ -41,6 +41,9 @@ class TestUsuario():
         assert str(
             target.value) == "Nome Invalido! Nome deve ter mais de 3 caracteres!"
 
+    """
+    ###################### VALIDAÇÕES DO ATRIBUTO EMAIL ####################
+    """
     # validações do atributo email\
     @pytest.mark.parametrize("email", ["", None])
     def test_email_nao_pode_ser_vazio(self, email: str):
@@ -102,8 +105,24 @@ class TestUsuario():
             self.criar_usuario(email=email)
         assert str(target.value) == "Email Invalido! Email deve conter mais de 2 caracteres antes do @!"
 
+    """
+    quando email não tiver ao menos 3 caracteres depois do @
+    entao deve ser gerado um erro E informar que email e invalido
+    """
+    @pytest.mark.parametrize("email", ["emai@.a"])
+    def test_email_deve_conter_3_caracteres_depois_do_arroba(self, email: str):
+        with pytest.raises(EmailInvalidoError) as target:
+            self.criar_usuario(email=email)
+        assert str(target.value) == "Email Invalido! Email deve conter mais de 2 caracteres depois do @!"
 
-
+    """
+    quando email estiver valido 
+    então atributo email deve ser igual a email
+    """
+    @pytest.mark.parametrize("email", ["email@.com", "email@.com.br", "meu+email@mail.com.br", "meu-email@mail.com", "em123@mail.com.net"])
+    def test_email_deve_ser_igual_a_email(self, email:str):
+        usuario = self.criar_usuario(email=email)
+        assert usuario.email == email
 
 
 

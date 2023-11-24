@@ -17,5 +17,5 @@
 - - [X] O email pode e deve conter um @ e ao menos . após o @
 - - [X] O email nao pode comecar ou terminar com .
 - - [X] O email tem quer ter no minimo 3 char antes do @
-- - [ ] O email tem quer ter no minimo 3 char depois do @
+- - [X] O email tem quer ter no minimo 3 char depois do @
 

@@ -52,6 +52,10 @@ class Usuario():
         #check se email possui mais de 3 caracteres antes do arroba
         if len(email.split("@")[0]) < 3:
             raise EmailInvalidoError("Email Invalido! Email deve conter mais de 2 caracteres antes do @!")
+
+        #check se email possui mais de 3 caracteres depois do arroba
+        if len(email.split("@")[1]) < 3:
+            raise EmailInvalidoError("Email Invalido! Email deve conter mais de 2 caracteres depois do @!")
         return True
 
     @property
