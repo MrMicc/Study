@@ -39,17 +39,19 @@ class Usuario():
         #check se o email começa ou termina com carcter especiais
         if email[0] in character_especiais or email[-1] in character_especiais:
             raise EmailInvalidoError("Email Invalido! Email pode comecar ou terminar com caracteres especiais!")
-
         #check se o email possui @
         if "@" not in email:
             raise EmailInvalidoError("Email Invalido! Email deve conter @!")
         #check se email possuim mais de um @
         if email.count("@") > 1:
-            raise EmailInvalidoError("Email Invalido! Email nao pode conter mais de um @!")
-        #check se email tem pelo menos um ponto 
-        if "." not in email:
-            raise EmailInvalidoError("Email Invalido! Email deve conter .!")
+            raise EmailInvalidoError("Email Invalido! Email nao pode conter mais de um @!")\
+        #check se o email tem um ponto apos o arroba
+        if "." not in email.split("@")[1]:
+            raise EmailInvalidoError("Email Invalido! Email deve conter ponto apos o @!")
 
+        #check se email possui mais de 3 caracteres antes do arroba
+        if len(email.split("@")[0]) < 3:
+            raise EmailInvalidoError("Email Invalido! Email deve conter mais de 2 caracteres antes do @!")
         return True
 
     @property

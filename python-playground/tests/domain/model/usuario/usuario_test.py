@@ -83,14 +83,24 @@ class TestUsuario():
         assert str(target.value) == "Email Invalido! Email nao pode conter mais de um @!"
 
     """
-    quando email não tiver ao menos um .
-    então deve ser gerado um erro E informar que email e invalido
+    quuando o não existir um ponto apos o @
+    entao deve ser gerado um erro E informar que email e invalido
     """
-    @pytest.mark.parametrize("email", ["emial@mail"])
-    def test_email_deve_conter_pelo_menos_um_ponto(self, email: str):
+    @pytest.mark.parametrize("email", ["email@mail", "meu.email@mail"])
+    def test_email_deve_conter_ponto_apos_arroba(self, email: str):
         with pytest.raises(EmailInvalidoError) as target:
             self.criar_usuario(email=email)
-        assert str(target.value) == "Email Invalido! Email deve conter .!"
+        assert str(target.value) == "Email Invalido! Email deve conter ponto apos o @!"
+
+    """
+    quando email não tiver ao menos 3 caracteres antes do @
+    entao deve ser gerado um erro E informar que email e invalido
+    """
+    @pytest.mark.parametrize("email", ["an@email.com", "a@mail.com.net"])
+    def test_email_deve_conter_3_caracteres_antes_do_arroba(self, email: str):
+        with pytest.raises(EmailInvalidoError) as target:
+            self.criar_usuario(email=email)
+        assert str(target.value) == "Email Invalido! Email deve conter mais de 2 caracteres antes do @!"
 
 
 
