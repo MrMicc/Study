@@ -46,6 +46,9 @@ class Usuario():
         #check se email possuim mais de um @
         if email.count("@") > 1:
             raise EmailInvalidoError("Email Invalido! Email nao pode conter mais de um @!")
+        #check se email tem pelo menos um ponto 
+        if "." not in email:
+            raise EmailInvalidoError("Email Invalido! Email deve conter .!")
 
         return True
 

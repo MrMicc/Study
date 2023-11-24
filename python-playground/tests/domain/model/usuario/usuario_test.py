@@ -82,6 +82,16 @@ class TestUsuario():
             self.criar_usuario(email=email)
         assert str(target.value) == "Email Invalido! Email nao pode conter mais de um @!"
 
+    """
+    quando email não tiver ao menos um .
+    então deve ser gerado um erro E informar que email e invalido
+    """
+    @pytest.mark.parametrize("email", ["emial@mail"])
+    def test_email_deve_conter_pelo_menos_um_ponto(self, email: str):
+        with pytest.raises(EmailInvalidoError) as target:
+            self.criar_usuario(email=email)
+        assert str(target.value) == "Email Invalido! Email deve conter .!"
+
 
 
 
