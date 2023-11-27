@@ -18,27 +18,46 @@ class TestUsuario():
     def test_nome_nao_pode_ter_vazio(self, nome):
         with pytest.raises(NomeInvalidoError) as target:
             self.criar_usuario(nome)
-        assert str(target.value) == UsuarioValidacoes.NOME_INVALIDO.value 
+        print(str(target.value))
+        assert UsuarioValidacoes.NOME_INVALIDO.value in target.value.messages
 
-    @pytest.mark.parametrize("nome", [123, 123.0, '123', 'Micci123'])
-    def test_nome_nao_pode_ser_numerico(self, nome):
+    @pytest.mark.parametrize("nome", [123, 123.0])
+    def test_nome_precisa_ser_string(self, nome):
         with pytest.raises(NomeInvalidoError) as target:
             self.criar_usuario(nome)
-        assert str(target.value) == UsuarioValidacoes.NOME_NAO_PODE_TER_NUMEROS.value
+        assert UsuarioValidacoes.NOME_PRECISA_SER_STRING.value in target.value.messages
+
+    @pytest.mark.parametrize("nome", ["Mic13ci", "Luiz123", "123"])
+    def test_nome_nao_pode_conter_numeros(self, nome):
+        with pytest.raises(NomeInvalidoError) as target:
+            self.criar_usuario(nome)
+        assert UsuarioValidacoes.NOME_NAO_PODE_TER_NUMEROS.value in target.value.messages
 
     @pytest.mark.parametrize("nome", ["n@me", "Lu!z", "Jo@o", "Luis&", "$hirley", "marc*s"])
     def test_nome_nao_pode_conter_caracteres_especiais(self, nome):
         with pytest.raises(NomeInvalidoError) as target:
             self.criar_usuario(nome)
-        assert str(
-            target.value) == UsuarioValidacoes.NOME_NAO_PODE_TER_CARACTERES_ESPECIAIS.value
+        assert UsuarioValidacoes.NOME_NAO_PODE_TER_CARACTERES_ESPECIAIS.value in target.value.messages
 
     @pytest.mark.parametrize("nome", ["An", "a", "zu"])
     def test_nome_nao_pode_conter_menos_de_3_caracteres(self, nome):
         with pytest.raises(NomeInvalidoError) as target:
             self.criar_usuario(nome)
-        assert str(
-            target.value) == UsuarioValidacoes.NOME_NAO_PODE_SER_MENOR_QUE_3_CHAR.value
+        assert UsuarioValidacoes.NOME_NAO_PODE_SER_MENOR_QUE_3_CHAR.value in target.value.messages
+
+
+    @pytest.mark.parametrize("nome", ["1@"])
+    def test_nome_invalido_tamnanho_numero_simbolo(self, nome):
+        lista_erros_esperados = [] 
+        lista_erros_esperados.append(UsuarioValidacoes.NOME_NAO_PODE_TER_NUMEROS.value)
+        lista_erros_esperados.append(UsuarioValidacoes.NOME_NAO_PODE_TER_CARACTERES_ESPECIAIS.value)
+        lista_erros_esperados.append(UsuarioValidacoes.NOME_NAO_PODE_SER_MENOR_QUE_3_CHAR.value)
+
+        with pytest.raises(NomeInvalidoError) as target:
+            self.criar_usuario(nome)
+
+        print("erro: "+ str(target.value))
+        assert target.value.messages == lista_erros_esperados
 
     """
     ###################### VALIDAÇÕES DO ATRIBUTO EMAIL ####################

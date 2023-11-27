@@ -8,7 +8,7 @@ class UsuarioValidacoes(Enum):
     NOME_NAO_PODE_TER_NUMEROS = "Nome Invalido! Não pode conter números!"
     NOME_NAO_PODE_TER_CARACTERES_ESPECIAIS = "Nome Invalido! Nome pode conter caracteres especiais!"
     NOME_NAO_PODE_SER_MENOR_QUE_3_CHAR = "Nome Invalido! Nome deve ter pelo menos 3 caracteres"
-
+    NOME_PRECISA_SER_STRING = "Nome invalido! Nome precisa ser do tipo String"
 
 class Usuario():
 
@@ -22,20 +22,30 @@ class Usuario():
             self.__email = "".join(email.split())
 
     def __checa_se_nome_valido(self, nome: str) -> bool:
+        lista_erros = []
         if not nome:
-            raise NomeInvalidoError(UsuarioValidacoes.NOME_INVALIDO.value)
+            lista_erros.append(UsuarioValidacoes.NOME_INVALIDO.value)
+           # raise (NomeInvalidoError(UsuarioValidacoes.NOME_INVALIDO.value))
         # verify if nome is a string
         if not isinstance(nome, str):
-            raise NomeInvalidoError(UsuarioValidacoes.NOME_NAO_PODE_TER_NUMEROS.value)
-        # nome cannot have numbers
-        if any(char.isdigit() for char in nome):
-            raise NomeInvalidoError(UsuarioValidacoes.NOME_NAO_PODE_TER_NUMEROS.value)
+            lista_erros.append(UsuarioValidacoes.NOME_PRECISA_SER_STRING.value)
+            raise NomeInvalidoError(lista_erros)
+        
+        if isinstance(nome, str) and any(char.isdigit() for char in nome):
+            lista_erros.append(UsuarioValidacoes.NOME_NAO_PODE_TER_NUMEROS.value)
+           #  raise NomeInvalidoError(UsuarioValidacoes.NOME_NAO_PODE_TER_NUMEROS.value)
         # nome cannot have special characters
         if any(char in self.caracter_especiais for char in nome):
-            raise NomeInvalidoError(UsuarioValidacoes.NOME_NAO_PODE_TER_CARACTERES_ESPECIAIS.value)
+            lista_erros.append(UsuarioValidacoes.NOME_NAO_PODE_TER_CARACTERES_ESPECIAIS.value)
+           #  raise NomeInvalidoError(UsuarioValidacoes.NOME_NAO_PODE_TER_CARACTERES_ESPECIAIS.value)
         # nome needs to be at least 3 characters long
         if len(nome) < 3:
-            raise NomeInvalidoError(UsuarioValidacoes.NOME_NAO_PODE_SER_MENOR_QUE_3_CHAR.value)
+            lista_erros.append(UsuarioValidacoes.NOME_NAO_PODE_SER_MENOR_QUE_3_CHAR.value)
+           #  raise NomeInvalidoError(UsuarioValidacoes.NOME_NAO_PODE_SER_MENOR_QUE_3_CHAR.value)
+
+        if len(lista_erros) > 0:
+            print(lista_erros)
+            raise NomeInvalidoError(lista_erros)
         return True
 
     def __checa_se_email_valido(self, email: str) -> bool:

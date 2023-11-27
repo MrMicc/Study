@@ -1,5 +1,6 @@
 class NomeInvalidoError(Exception):
-    pass
+    def __init__(self, messages):
+        self.messages = messages
 
 
 class EmailInvalidoError(Exception):
