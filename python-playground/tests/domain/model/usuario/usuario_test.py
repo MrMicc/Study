@@ -1,5 +1,4 @@
-from src.domain.model import usuario
-from src.domain.model.usuario.usuario import Usuario
+from src.domain.model.usuario.usuario import Usuario, UsuarioValidacoes
 from src.domain.model.exception.customException import *
 import pytest
 
@@ -19,27 +18,27 @@ class TestUsuario():
     def test_nome_nao_pode_ter_vazio(self, nome):
         with pytest.raises(NomeInvalidoError) as target:
             self.criar_usuario(nome)
-        assert str(target.value) == "Nome Invalido!"
+        assert str(target.value) == UsuarioValidacoes.NOME_INVALIDO.value 
 
     @pytest.mark.parametrize("nome", [123, 123.0, '123', 'Micci123'])
     def test_nome_nao_pode_ser_numerico(self, nome):
         with pytest.raises(NomeInvalidoError) as target:
             self.criar_usuario(nome)
-        assert str(target.value) == "Nome Invalido! Não pode conter números!"
+        assert str(target.value) == UsuarioValidacoes.NOME_NAO_PODE_TER_NUMEROS.value
 
     @pytest.mark.parametrize("nome", ["n@me", "Lu!z", "Jo@o", "Luis&", "$hirley", "marc*s"])
     def test_nome_nao_pode_conter_caracteres_especiais(self, nome):
         with pytest.raises(NomeInvalidoError) as target:
             self.criar_usuario(nome)
         assert str(
-            target.value) == "Nome Invalido! Nome pode conter caracteres especiais!"
+            target.value) == UsuarioValidacoes.NOME_NAO_PODE_TER_CARACTERES_ESPECIAIS.value
 
     @pytest.mark.parametrize("nome", ["An", "a", "zu"])
     def test_nome_nao_pode_conter_menos_de_3_caracteres(self, nome):
         with pytest.raises(NomeInvalidoError) as target:
             self.criar_usuario(nome)
         assert str(
-            target.value) == "Nome Invalido! Nome deve ter mais de 3 caracteres!"
+            target.value) == UsuarioValidacoes.NOME_NAO_PODE_SER_MENOR_QUE_3_CHAR.value
 
     """
     ###################### VALIDAÇÕES DO ATRIBUTO EMAIL ####################
