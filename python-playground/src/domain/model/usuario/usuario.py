@@ -34,7 +34,6 @@ class Usuario():
         lista_erros = []
         if not nome:
             lista_erros.append(UsuarioValidacoes.NOME_INVALIDO.value)
-           # raise (NomeInvalidoError(UsuarioValidacoes.NOME_INVALIDO.value))
         # verify if nome is a string
         if not isinstance(nome, str):
             lista_erros.append(UsuarioValidacoes.NOME_PRECISA_SER_STRING.value)
@@ -43,17 +42,15 @@ class Usuario():
         if isinstance(nome, str) and any(char.isdigit() for char in nome):
             lista_erros.append(
                 UsuarioValidacoes.NOME_NAO_PODE_TER_NUMEROS.value)
-           #  raise NomeInvalidoError(UsuarioValidacoes.NOME_NAO_PODE_TER_NUMEROS.value)
         # nome cannot have special characters
         if any(char in self.caracter_especiais for char in nome):
             lista_erros.append(
                 UsuarioValidacoes.NOME_NAO_PODE_TER_CARACTERES_ESPECIAIS.value)
-           #  raise NomeInvalidoError(UsuarioValidacoes.NOME_NAO_PODE_TER_CARACTERES_ESPECIAIS.value)
         # nome needs to be at least 3 characters long
         if len(nome) < 3:
             lista_erros.append(
                 UsuarioValidacoes.NOME_NAO_PODE_SER_MENOR_QUE_3_CHAR.value)
-           #  raise NomeInvalidoError(UsuarioValidacoes.NOME_NAO_PODE_SER_MENOR_QUE_3_CHAR.value)
+        
         if len(lista_erros) > 0:
             print(lista_erros)
             raise NomeInvalidoError(lista_erros)
@@ -72,26 +69,19 @@ class Usuario():
         if "@" not in email:
             lista_erros.append(
                 UsuarioValidacoes.EMAIL_DEVE_CONTER_ARROBA.value)
-            # raise EmailInvalidoError("Email Invalido! Email deve conter @!")
         # check se email possuim mais de um @
         else:  
             if email.count("@") > 1:
                 lista_erros.append(UsuarioValidacoes.EMAIL_NAO_PODE_CONTER_MAIS_QUE_UM_ARROBA.value)
-                #raise EmailInvalidoError("Email Invalido! Email nao pode conter mais de um @!")\
-                # check se o email tem um ponto apos o arroba
+            # check se o email tem um ponto apos o arroba
             if "." not in email.split("@")[1]:
                 lista_erros.append(UsuarioValidacoes.EMAIL_DEVE_CONTER_PONTOS_APOS_ARROBA.value)
-                #raise EmailInvalidoError("Email Invalido! Email deve conter ponto apos o @!")
-
-        # check se email possui mais de 3 caracteres antes do arroba
+             # check se email possui mais de 3 caracteres antes do arroba
             if len(email.split("@")[0]) < 3:
                 lista_erros.append(UsuarioValidacoes.EMAIL_DEVE_TER_PELO_MENOS_2_CARACTERES_ANTES_ARROBA.value)
-                #raise EmailInvalidoError( "Email Invalido! Email deve conter mais de 2 caracteres antes do @!")
-
-        # check se email possui mais de 3 caracteres depois do arroba
+            # check se email possui mais de 3 caracteres depois do arroba
             if len(email.split("@")[1]) < 3:
                 lista_erros.append(UsuarioValidacoes.EMAIL_DEVE_TER_PELO_MENOS_2_CARACTERES_DEPOIS_ARROBA.value)
-                #raise EmailInvalidoError("Email Invalido! Email deve conter mais de 2 caracteres depois do @!")
 
         if len(lista_erros) > 0:
             raise EmailInvalidoError(lista_erros)
