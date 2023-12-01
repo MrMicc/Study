@@ -138,3 +138,15 @@ class TestUsuario():
     def test_email_deve_ser_igual_a_email(self, email: str):
         usuario = self.criar_usuario(email=email)
         assert usuario.email == email
+
+
+    """
+    Dado que existem caracteres especiais
+    quando eles forem checados pelo sistema
+    então eles devem ser dessa lista:  "@#$%^&*()-+?_=,<>!/."
+
+    """
+    @pytest.mark.parametrize("caracteres_especiais", [ "@#$%^&*()-+?_=,<>!/."])
+    def test_verifica_lista_de_caracteres_especiais(self, caracteres_especiais: str):
+        usuario = self.criar_usuario()
+        assert usuario.caracteres_especiais == caracteres_especiais

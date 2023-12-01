@@ -13,14 +13,15 @@ class UsuarioValidacoes(Enum):
     EMAIL_DEVE_CONTER_ARROBA = "Email Invalido! Email deve conter @"
     EMAIL_NAO_PODE_CONTER_MAIS_QUE_UM_ARROBA = "Email Invalido! Email nao pode conter mais de um @!"
     EMAIL_DEVE_CONTER_PONTOS_APOS_ARROBA = "Email Invalido! Email deve conter ponto apos o @!"
-    EMAIL_DEVE_TER_PELO_MENOS_2_CARACTERES_ANTES_ARROBA ="Email Invalido! Email deve conter mais de 2 caracteres antes do @!" 
-    EMAIL_DEVE_TER_PELO_MENOS_2_CARACTERES_DEPOIS_ARROBA ="Email Invalido! Email deve conter mais de 2 caracteres depois do @!"
+    EMAIL_DEVE_TER_PELO_MENOS_2_CARACTERES_ANTES_ARROBA = "Email Invalido! Email deve conter mais de 2 caracteres antes do @!"
+    EMAIL_DEVE_TER_PELO_MENOS_2_CARACTERES_DEPOIS_ARROBA = "Email Invalido! Email deve conter mais de 2 caracteres depois do @!"
 
+    CARACTERES_ESPECIAIS = "@#$%^&*()-+?_=,<>!/."
 
 
 class Usuario():
 
-    caracter_especiais = "@#$%^&*()-+?_=,<>!/"
+    __caracter_especiais = UsuarioValidacoes.CARACTERES_ESPECIAIS.value
 
     def __init__(self, nome: str, email: str) -> None:
 
@@ -43,14 +44,14 @@ class Usuario():
             lista_erros.append(
                 UsuarioValidacoes.NOME_NAO_PODE_TER_NUMEROS.value)
         # nome cannot have special characters
-        if any(char in self.caracter_especiais for char in nome):
+        if any(char in self.__caracter_especiais for char in nome):
             lista_erros.append(
                 UsuarioValidacoes.NOME_NAO_PODE_TER_CARACTERES_ESPECIAIS.value)
         # nome needs to be at least 3 characters long
         if len(nome) < 3:
             lista_erros.append(
                 UsuarioValidacoes.NOME_NAO_PODE_SER_MENOR_QUE_3_CHAR.value)
-        
+
         if len(lista_erros) > 0:
             print(lista_erros)
             raise NomeInvalidoError(lista_erros)
@@ -58,7 +59,7 @@ class Usuario():
 
     def __checa_se_email_valido(self, email: str) -> bool:
         lista_erros = []
-        character_especiais = "@#$%^&*()-+?_=,<>!/."
+        character_especiais = self.__caracter_especiais
         if not email:
             raise EmailInvalidoError("Email Invalido!")
         # check se o email começa ou termina com carcter especiais
@@ -70,22 +71,31 @@ class Usuario():
             lista_erros.append(
                 UsuarioValidacoes.EMAIL_DEVE_CONTER_ARROBA.value)
         # check se email possuim mais de um @
-        else:  
+        else:
             if email.count("@") > 1:
-                lista_erros.append(UsuarioValidacoes.EMAIL_NAO_PODE_CONTER_MAIS_QUE_UM_ARROBA.value)
+                lista_erros.append(
+                    UsuarioValidacoes.EMAIL_NAO_PODE_CONTER_MAIS_QUE_UM_ARROBA.value)
             # check se o email tem um ponto apos o arroba
             if "." not in email.split("@")[1]:
-                lista_erros.append(UsuarioValidacoes.EMAIL_DEVE_CONTER_PONTOS_APOS_ARROBA.value)
+                lista_erros.append(
+                    UsuarioValidacoes.EMAIL_DEVE_CONTER_PONTOS_APOS_ARROBA.value)
              # check se email possui mais de 3 caracteres antes do arroba
             if len(email.split("@")[0]) < 3:
-                lista_erros.append(UsuarioValidacoes.EMAIL_DEVE_TER_PELO_MENOS_2_CARACTERES_ANTES_ARROBA.value)
+                lista_erros.append(
+                    UsuarioValidacoes.EMAIL_DEVE_TER_PELO_MENOS_2_CARACTERES_ANTES_ARROBA.value)
             # check se email possui mais de 3 caracteres depois do arroba
             if len(email.split("@")[1]) < 3:
-                lista_erros.append(UsuarioValidacoes.EMAIL_DEVE_TER_PELO_MENOS_2_CARACTERES_DEPOIS_ARROBA.value)
+                lista_erros.append(
+                    UsuarioValidacoes.EMAIL_DEVE_TER_PELO_MENOS_2_CARACTERES_DEPOIS_ARROBA.value)
 
         if len(lista_erros) > 0:
             raise EmailInvalidoError(lista_erros)
         return True
+
+    @property
+    def caracteres_especiais(self) -> str:
+        """This caracters_especiais property."""
+        return self.__caracter_especiais
 
     @property
     def nome(self):
