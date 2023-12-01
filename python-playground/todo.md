@@ -19,3 +19,9 @@
 - - [X] O email tem quer ter no minimo 3 char antes do @
 - - [X] O email tem quer ter no minimo 3 char depois do @
 
+
+##### Tech/Conf/Arch
+- [ ] Add frame de mudation
+- [ ] Verificar coverage
+- [ ] Explorar opções avançadas de mutation 
+- [ ] Explorar opções avançadas de coverage

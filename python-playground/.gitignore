@@ -1,4 +1,8 @@
 # Logs
+.mutmut-cache
+.python-version
+html
+
 logs
 *.log
 npm-debug.log*
