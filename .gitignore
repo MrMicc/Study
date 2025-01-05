@@ -8,6 +8,7 @@ mutants/
 .python-version
 __pycache__
 html
+coverage.xml
 
 logs
 *.log
