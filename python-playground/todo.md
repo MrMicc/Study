@@ -21,7 +21,7 @@
 
 
 ##### Tech/Conf/Arch
-- [ ] Add frame de mudation
+- [X] Add frame de mudation
 - [X] Verificar coverage
 - [ ] Explorar opções avançadas de mutation 
 - [ ] Explorar opções avançadas de coverage
