@@ -64,6 +64,13 @@ class TestUsuario():
     """
     ###################### VALIDAÇÕES DO ATRIBUTO EMAIL ####################
     """
+
+    @pytest.mark.parametrize("email", [" email@email.com", "email@mail.com.br", "email@email.cm ", "email@email.com",  "ema@mail.com", "ema@a.c"])
+    def test_email_valido(self, email: str):
+        usuario = self.criar_usuario(email=email)
+        assert usuario.email == "".join(email.split())
+
+
     # validações do atributo email\
     @pytest.mark.parametrize("email", ["", None])
     def test_email_nao_pode_ser_vazio(self, email: str):
